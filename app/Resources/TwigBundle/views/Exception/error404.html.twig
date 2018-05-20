@@ -1,0 +1,14 @@
+{% extends "@AAPhotoforyou//layout.html.twig" %}
+
+{% block title %}
+    Erreur {{ status_text }} - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+    {{ parent() }}
+    <h1>Erreur {{ status_code }}</h1>
+    <h2>Ressource introuvable</h2>
+   	<h3>Le lien que vous avez demandé n'existe pas</h3>
+    
+{% endblock %}

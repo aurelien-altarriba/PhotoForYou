@@ -1,0 +1,4 @@
+services:
+#    aa_photoforyou.example:
+#        class: AA\PhotoforyouBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

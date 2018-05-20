@@ -1,0 +1,44 @@
+<?php
+
+namespace AA\UserBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use FOS\UserBundle\Model\User as BaseUser;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * User
+ *
+ * @ORM\Table(name="aa_user")
+ * @ORM\Entity(repositoryClass="AA\UserBundle\Repository\UserRepository")
+ */
+class User extends BaseUser
+{
+    public function __construct()
+    {
+        parent::__construct();
+        $this->roles = array('ROLE_USER');
+    }
+
+    /**
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="credit", type="integer")
+     */
+    protected $credit = 0;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="photographe", type="boolean")
+     */
+    protected $photographe = false;
+    
+}

@@ -1,0 +1,57 @@
+{% extends "@AAPhotoforyou\\layout.html.twig" %}
+
+{% block title %}
+  Catalogue - {{ parent() }}
+{% endblock %}
+
+{% block aaphoto_body %}
+
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1em;">
+    <h2>Catalogue des photos</h2>
+  {{ include("@AAPhotoforyou/Photo/formCatalogue.html.twig") }}
+  </div>
+
+
+  <div style="width: 100%; display: flex; justify-content: space-around; flex-wrap: wrap;">
+  {% for photo in listPhotos %}
+    <div style="width: 18em; box-shadow: 0px 0px 3px black; text-align: center; margin-bottom: 3em;">
+      <a href="{{ path('photo_voir', {'id': photo.id}) }}" style="color: initial; text-decoration: none;">
+        "{{ photo.nom }}"
+        <br>
+        par {{ photo.vendeur }}
+        le {{ photo.dateCreation|date('d/m/Y') }}
+        <br>
+
+        <img
+          src="{{ vich_uploader_asset(photo, 'imageFile') }}" alt="{{ photo.imageName }}"
+          style="
+            box-shadow: 0px 0px 2px grey;
+            width: 100%;
+          "
+        />
+
+        <div style="display: flex; justify-content: space-between; flex-wrap: wrap; padding-left: 2%; padding-right: 2%;">
+          <div>Prix: {{ photo.prix }} crédits</div>
+          <div>{{ photo.nbVues }} vues</div>
+        </div>
+      </a>
+    </div>
+  {% else %}
+    <p>Aucune photographie disponible pour la catégorie : {{ categorie }}</p>
+  {% endfor %}
+  </div>
+
+  <ul class="pagination">
+    {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
+    {% for p in range(1, nbPages) %}
+      <li{% if p == page %} class="active"{% endif %}>
+        <a href="{{ path('photo_catalogue', {'page': p}) }}">{{ p }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <p style="font-style: italic; font-size: 0.8em; text-align: right;">
+    {{ nbPerPage }} photographies par page - Catégorie : {{ categorie }}
+  </p>
+
+{% endblock %}

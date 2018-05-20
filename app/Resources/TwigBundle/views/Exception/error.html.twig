@@ -1,0 +1,16 @@
+{% extends "@AAPhotoforyou//layout.html.twig" %}
+
+{% block title %}
+    Erreur {{ status_text }} - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+    {{ parent() }}
+    <h1>Une erreur s'est produite</h1>
+    <h2>Erreur{{ status_code }} :</h2>
+    <h3>{{ status_text }}</h3>
+
+    <p>Nous nous excusons pour la gêne occasionnée.</p>
+    
+{% endblock %}

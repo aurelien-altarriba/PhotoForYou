@@ -1,0 +1,14 @@
+{% extends "@AAPhotoforyou//layout.html.twig" %}
+
+{% block title %}
+	Ajouter une photographie - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+	<h4>Ajouter une photographie à la vente</h4>
+
+	{{ include("@AAPhotoforyou/Photo/form.html.twig") }}
+	
+{% endblock %}

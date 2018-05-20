@@ -1,0 +1,38 @@
+{% extends "@AAPhotoforyou\\layout.html.twig" %}
+
+{% block title %}
+  Mes photos en vente - {{ parent() }}
+{% endblock %}
+
+{% block aaphoto_body %}
+  <h2 style="margin-bottom: 1em;">Mes photographies en vente</h2>
+
+  <div style="width: 100%; display: flex; justify-content: space-around; flex-wrap: wrap;">
+  {% for photo in listPhotos %}
+    <div style="width: 18em; box-shadow: 0px 0px 3px black; text-align: center; margin-bottom: 3em;">
+      <a href="{{ path('photo_voir', {'id': photo.id}) }}" style="color: initial; text-decoration: none;">
+        "{{ photo.nom }}"
+        <br>
+        le {{ photo.dateCreation|date('d/m/Y') }} à {{ photo.dateCreation|date('H:i:s') }}
+        <br>
+
+        <img
+          src="{{ vich_uploader_asset(photo, 'imageFile') }}" alt="{{ photo.imageName }}"
+          style="
+            box-shadow: 0px 0px 2px grey;
+            width: 100%;
+          "
+        />
+
+        <div style="display: flex; justify-content: space-between; flex-wrap: wrap; padding-left: 2%; padding-right: 2%;">
+          <div style="font-weight: bold;">Prix: {{ photo.prix }} crédits</div>
+          <div>{{ photo.nbVues }} vues</div>
+        </div>
+      </a>
+    </div>
+  {% else %}
+    <p>Aucune photographie en vente actuellement</p>
+  {% endfor %}
+  </div>
+
+{% endblock %}

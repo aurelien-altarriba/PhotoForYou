@@ -1,0 +1,16 @@
+{% extends "@AAPhotoforyou//layout.html.twig" %}
+
+{% block title %}
+	Recharger - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+	<h3>Recharger des crédits</h3>
+
+	<div class="well">
+	 	{{ form(form) }}
+	</div>
+	
+{% endblock %}

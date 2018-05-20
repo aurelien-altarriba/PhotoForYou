@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}PhotoForYou{% endblock %}</title>
+
+    {% block stylesheets %}
+      <style type="text/css">
+        @import url(../../../../web/bootstrap.min.css);
+      </style>
+
+      <style type="text/css">
+        #header
+        {
+          position: absolute;
+          top: 0;
+          width: 100%;
+          background-color: #EEE;
+          padding: 1em;
+          padding-left: 5em;
+          padding-right: 4em;
+          box-shadow: 0px 0px 3px grey;
+
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        #header_menu
+        {
+          height: 100%;
+          display: flex;
+          flex-direction: row;
+        }
+
+        #header_menu li
+        {
+          margin: 0;
+          padding: 0;
+        }
+
+        #header_menu a
+        {
+          color: initial;
+          margin: 0.2em;
+          font-size: 1.4em;
+          height: 3em;
+
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        #header_menu a:hover
+        {
+          background-color: #DDD !important;
+        }
+
+        #footer
+        {
+          text-align: center;
+          width: 100%;
+
+          margin-top: 3em;
+        }
+
+      </style>
+    {% endblock %}
+  </head>
+
+  <body>
+  <div id="header">
+    <div>
+      <h1 style="margin: 0; padding: 0; font-family: Arial;">PhotoForYou</h1>
+      <h4>Vente de photographies professionnelle en ligne</h4> 
+    </div>
+
+    <ul id="header_menu" class="nav nav-pills nav-stacked">
+      {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <li><a href="{{ path('fos_user_profile_show') }}">Mon compte</a></li>
+
+        {% if is_granted('ROLE_CLIENT') %}
+        <li><a href="{{ path('panier_voir') }}">Mon panier</a></li>
+        {% endif %}
+
+        <li><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></li>
+      {% else %}
+        <li><a href="{{ path('fos_user_registration_register') }}">Inscription</a></li>
+        <li><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
+      {% endif %}
+    </ul>
+  </div>
+
+  <div class="container" style="padding-top: 10em;">
+
+    <div class="row">
+      <div id="menu" class="col-md-3">
+      {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <h4>Bienvenue {{ app.user.username }}</h4>
+        <h6>Vous avez <b>{{ app.user.credit }}</b> crédits</h6>
+        <hr>
+      {% endif %}
+        <h3>Menu</h3>
+        <ul class="nav nav-pills nav-stacked">
+
+          <li><a href="{{ path('aa_base_accueil') }}">Accueil</a></li>
+          <li><a href="{{ path('photo_catalogue') }}">Catalogue des photos</a></li>
+
+          {% if is_granted('ROLE_PHOTOGRAPHE') %}
+            <li><a href="{{ path('photo_ajouter') }}">Ajouter une photo</a></li>
+            <li><a href="{{ path('photo_en_vente') }}">Mes photos en vente</a></li>
+            <li><a href="{{ path('retirer') }}">Retirer mes crédits</a></li>
+          {% endif %}
+
+          {% if is_granted('ROLE_CLIENT') %}
+            <li><a href="{{ path('photo_liste_perso') }}">Mes photos</a></li>
+            <li><a href="{{ path('recharger') }}">Acheter des crédits</a></li>
+          {% endif %}      
+        </ul>
+      </div>
+      
+      <div id="content" class="col-md-9">
+        {# On affiche tous les messages flash dont le nom est « info » #}
+        {% for message in app.session.flashbag.get('info') %}
+          <div class="alert alert-info">{{ message }}</div>
+        {% endfor %}
+        
+        {% block body %}
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+
+  <footer id="footer">
+    <hr>
+    <p>PhotoForYou - Aurélien Altarriba © {{ 'now'|date('Y') }}</p>
+  </footer>
+  </body>
+</html>

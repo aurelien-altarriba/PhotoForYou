@@ -1,0 +1,34 @@
+photo_catalogue:
+    path:      /catalogue/{page}
+    defaults:
+        _controller: AAPhotoforyouBundle:Photo:catalogue
+        page:        1
+    requirements:
+        page: \d*
+
+photo_voir:
+    path: /photo/{id}
+    defaults:
+        _controller: AAPhotoforyouBundle:Photo:photo
+    requirements:
+        id: \d+
+
+photo_ajouter:
+    path: /ajouter
+    defaults: { _controller: AAPhotoforyouBundle:Photo:ajouter }
+
+photo_modifier:
+    path: /modifier/{id}
+    defaults: { _controller: AAPhotoforyouBundle:Photo:modifier }
+
+photo_supprimer:
+    path: /supprimer/{id}
+    defaults: { _controller:AAPhotoforyouBundle:Photo:supprimer }
+
+photo_liste_perso:
+    path: /mes-photos
+    defaults: { _controller:AAPhotoforyouBundle:Photo:mesphotos }
+
+photo_en_vente:
+    path: /photos-en-vente
+    defaults: { _controller:AAPhotoforyouBundle:Photo:photosEnVente }

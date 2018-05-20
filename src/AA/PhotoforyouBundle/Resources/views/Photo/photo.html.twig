@@ -1,0 +1,82 @@
+{% extends "@AAPhotoforyou//layout.html.twig" %}
+
+{% block title %}
+  Détails de la photo - {{ parent() }}
+{% endblock %}
+
+{% block aaphoto_body %}
+
+  <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+    <div style="font-style: italic;">
+      <h2 style="font-style: normal;">{{ photo.nom }}</h2><hr>Par {{ photo.vendeur }}, le {{ photo.dateCreation|date('d/m/Y') }} à {{ photo.dateCreation|date('H:i:s') }}
+    </div>
+
+    <h3 style="margin: 0; font-size: 1.7em;">Prix: {{ photo.prix }} crédits</h3>
+  </div>
+
+
+
+  <img
+    src="{{ vich_uploader_asset(photo, 'imageFile') | imagine_filter('miniature') }}" alt="{{ photo.imageName }}"
+    style="
+      margin-top: 1em;
+      margin-bottom: 0.5em;
+      box-shadow: 0px 0px 4px black;
+      max-width: 100%;
+    "
+  />
+  
+  <div style="display: flex; justify-content: space-between; align-items: center;">
+    <p style="margin: 0;">Catégories :</p>
+    <p style="margin: 0;">{{ photo.nbVues }} vues</p>
+  </div>
+
+  <div style="display: flex;">
+  {% if not photo.categories.empty %}
+      {% for categorie in photo.categories %}
+      <div style="padding: 0.5em; margin: 0.5em; box-shadow: 0px 0px 2px grey; border-radius: 0.2em;">
+        {{ categorie.name }}
+      </div>
+      {% endfor %}
+  {% else %}
+    <div style="padding: 0.5em; margin: 0.5em; box-shadow: 0px 0px 2px grey; border-radius: 0.2em;">
+      Aucune catégorie définie
+    </div>
+  {% endif %}
+  </div>
+
+  <div class="well" style="margin-top: 1em;">
+    <h4 style="margin: 0; padding-bottom: 0.5em;">Description:</h4>
+    <p style="margin: 0;">{{ photo.contenu }}</p>
+  </div>
+
+  <p>
+    <a href="{{ path('aa_base_accueil') }}" class="btn btn-default">
+      Retour à l'accueil
+    </a>
+
+    {# Si c'est un photographe et que le propriétaire de la photo est ce photographe #}
+    {% if is_granted('ROLE_PHOTOGRAPHE') and idUser == app.user.username %}
+      <a href="{{ path('photo_modifier', {'id': photo.id}) }}" class="btn btn-default">
+        Modifier la photographie
+      </a>
+
+      <a href="{{ path('photo_supprimer', {'id': photo.id}) }}" class="btn btn-danger">
+        Supprimer la photographie
+      </a>
+    {% endif %}
+
+    {% if is_granted('ROLE_CLIENT') and photo.acheteur is null %}
+      <a href="{{ path('panier_ajouter') }}" class="btn btn-default">
+        Ajouter au panier ({{ photo.prix }} crédits)
+      </a>
+    {% endif %}
+
+    {% if is_granted('ROLE_CLIENT') and photo.acheteur == app.user.username %}
+      <a href="{{ vich_uploader_asset(photo, 'imageFile') }}" class="btn btn-default">
+        Télécharger votre photographie
+      </a>
+    {% endif %}
+  </p>
+
+{% endblock %}

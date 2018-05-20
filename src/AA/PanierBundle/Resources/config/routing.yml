@@ -1,0 +1,15 @@
+panier_voir:
+    path:     /panier
+    defaults: { _controller: AAPanierBundle:Panier:panier }
+
+panier_ajouter:
+    path:     /panier/ajouter
+    defaults: { _controller: AAPanierBundle:Panier:ajouter }
+
+panier_retirer:
+    path:     /panier/retirer
+    defaults: { _controller: AAPanierBundle:Panier:retirer }
+
+panier_acheter:
+    path:     /panier/acheter
+    defaults: { _controller: AAPanierBundle:Panier:acheter }

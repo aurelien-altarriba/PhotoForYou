@@ -1,0 +1,35 @@
+{% extends "@AAPhotoforyou\\layout.html.twig" %}
+
+{% block title %}
+  Mes photos - {{ parent() }}
+{% endblock %}
+
+{% block aaphoto_body %}
+
+  <h2 style="margin-bottom: 1em;">Mes photographies achetées</h2>
+
+  <div style="width: 100%; display: flex; justify-content: space-around; flex-wrap: wrap;">
+  {% for photo in listPhotos %}
+    <div style="width: 18em; box-shadow: 0px 0px 3px black; text-align: center; margin-bottom: 3em;">
+      <a href="{{ path('photo_voir', {'id': photo.id}) }}" style="color: initial; text-decoration: none;">
+        "{{ photo.nom }}"
+        <br>
+        par {{ photo.vendeur }}
+        le {{ photo.dateCreation|date('d/m/Y') }}
+        <br>
+
+        <img
+          src="{{ vich_uploader_asset(photo, 'imageFile') }}" alt="{{ photo.imageName }}"
+          style="
+            box-shadow: 0px 0px 2px grey;
+            width: 100%;
+          "
+        />
+      </a>
+    </div>
+  {% else %}
+    <p>Aucune photographie achetée</p>
+  {% endfor %}
+  </div>
+
+{% endblock %}

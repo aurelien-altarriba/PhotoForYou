@@ -1,0 +1,81 @@
+{% extends "@AAPhotoforyou//layout.html.twig" %}
+
+{% block title %}
+	Mon panier - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+	<h3>Mon panier</h3>
+
+	<div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;
+	  font-size: 1.5em; font-weight: bold; text-align: center; background-color: white;
+	  border-bottom: 1px solid darkgrey; border-top: 1px solid lightgrey; margin-bottom: 1em;
+	  height: 2.5em; border-radius: 10px;
+	  position: sticky; top: 2%; box-shadow: 0px 0px 1px white;
+	  ">
+		<p style="height: 100%; background-color: #EEE; padding-left: 0.8em; padding-right: 0.8em;
+		  margin: 0; border-radius: 10px 0px 0px 10px;
+		  display: flex; justify-content: center; align-items: center;
+		  ">
+			Total: {{ totalCout }} crédits
+		</p>
+
+		<p style="font-size: 0.8em; margin: 0;">
+			{{ articles|length }} photo(s) dans le panier
+		</p>
+		
+		<a href="{{ path('panier_acheter', {'photos': articles}) }}"
+		  style=" background-color: #5C5; height: 100%; color: white; font-size: 1em; font-weight: bold;
+		  margin: 0; border-radius: 0px 10px 10px 0px; text-decoration: none;
+		  display: flex; justify-content: center; align-items: center;
+		  padding-left: 0.5em; padding-right: 0.5em;
+		  ">
+			Confirmer ma commande
+		</a>
+	</div>
+
+	<div style="width: 100%; display: flex; flex-direction: column;">
+	{% if articles != null %}
+		{% for photo in articles %}
+		<div style="box-shadow: 0px 0px 3px black; text-align: center; margin-bottom: 3em;
+		  color: initial; text-decoration: none; display: flex; flex-direction: row;
+		  justify-content: space-between; align-items: center; height: 100%; width: 100%;
+		  ">
+			<div style="width: 25%; font-size: 1.2em;">	
+		    	<span style="font-weight: bold;">"{{ photo.nom }}"</span>
+			    <br>
+			    par {{ photo.vendeur }}
+			    <br>
+			    le {{ photo.dateCreation|date('d/m/Y') }}
+			</div>
+
+			<a href="{{ path('photo_voir', {'id': photo.id}) }}" style="width: 40%;">
+				<img
+				  src="{{ vich_uploader_asset(photo, 'imageFile') }}" alt="{{ photo.imageName }}"
+				  style="
+				    box-shadow: 0px 0px 2px grey;
+				    width: 100%;
+				  "
+				/>
+			</a>
+
+			<div style="width: 25%; font-weight: bold; font-size: 1.5em;">
+				Prix:
+				<br>
+				{{ photo.prix }} crédits
+			</div>
+
+			<a href="{{ path('panier_retirer', {'id': photo.id}) }}" class="btn btn-danger"
+				style="font-size: 6em; width: 10%; height: 100%; display: flex; justify-content: center; align-items: center; border-radius: 0px !important;">
+		    	×
+		    </a>
+		</div>
+		{% else %}
+    		<h2>Panier vide</h2>
+		{% endfor %}
+	{% endif %}
+	</div>
+	
+{% endblock %}

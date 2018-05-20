@@ -1,0 +1,3 @@
+aa_base_accueil:
+    path:     /
+    defaults: { _controller: AABaseBundle:Default:index }

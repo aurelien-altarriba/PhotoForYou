@@ -1,0 +1,18 @@
+{% extends "@AAPhotoforyou//layout.html.twig" %}
+
+{% block title %}
+	Retirer mes crédits - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+	{{ parent() }}
+	<h3>Retirer mes crédits</h3>
+
+	{% if app.user.credit > 9 %}
+ 		{{ form(form) }}
+ 	{% else %}
+ 		<p>Vous devez avoir 10 crédits ou plus pour pouvoir les retirer en argent.</p>
+ 	{% endif %}
+	
+{% endblock %}

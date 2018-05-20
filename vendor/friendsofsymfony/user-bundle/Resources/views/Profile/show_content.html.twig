@@ -1,0 +1,33 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<div class="fos_user_user_show">
+    <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
+    <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
+</div>
+
+<a href="{{ path('fos_user_profile_edit') }}" class="btn btn-default">
+	Modifier mes informations
+</a>
+
+<a href="{{ path('fos_user_change_password') }}" class="btn btn-default">
+	Changer de mot de passe
+</a>
+
+<div style="margin: 3em; padding: 1em; background-color: red; color: white; width: 60%; text-align: center; border: 2px solid darkred; border-radius: 2em;">
+	<h3 style="font-weight: bold;">Attention /!\</h3>
+	<p>
+		<b>Vous perdrez tout vos crédits, cette action est IRRÉVERSIBLE!</b><br>
+
+		{% if is_granted('ROLE_PHOTOGRAPHE') %}
+			Toutes vos photos en vente seront supprimés.
+		{% else %}
+			Vous n'aurez plus accès aux photos que vous avez acheté.
+		{% endif %}
+
+
+	</p>
+
+	<a href="{{ path('desinscription') }}" class="btn btn-danger">
+		Supprimer mon compte
+	</a>
+</div>

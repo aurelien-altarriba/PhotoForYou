@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="fos_user_profile_show" path="/" methods="GET">
+        <default key="_controller">fos_user.profile.controller:showAction</default>
+    </route>
+
+    <route id="fos_user_profile_edit" path="/edit" methods="GET POST">
+        <default key="_controller">fos_user.profile.controller:editAction</default>
+    </route>
+
+    <!-- Route ajoutée pour l'achat des crédits -->
+    <route id="recharger" path="/recharger" methods="GET POST">
+        <default key="_controller">fos_user.profile.controller:rechargerAction</default>
+    </route>
+
+    <!-- Route ajoutée pour la désinscription -->
+    <route id="desinscription" path="/desinscription" methods="GET POST">
+        <default key="_controller">fos_user.profile.controller:desinscriptionAction</default>
+    </route>
+
+    <!-- Route ajoutée pour retirer ses crédits -->
+    <route id="retirer" path="/retirer" methods="GET POST">
+        <default key="_controller">fos_user.profile.controller:retirerAction</default>
+    </route>
+</routes>
